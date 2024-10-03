@@ -1,16 +1,271 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable zoom -->
+    <title>JM Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://i.gifer.com/1pX9.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            user-select: none; /* Prevent text selection */
+        }
+        header {
+            background-color: rgba(40, 44, 52, 0.7);
+            padding: 30px 0; /* Increased padding for header */
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Ensure child elements don't overflow */
+        }
+        .profile {
+            position: absolute;
+            top: 20px; /* Adjusted top position */
+            right: 20px; /* Adjusted right position */
+            width: 50px; /* Fixed width */
+            height: 50px; /* Fixed height */
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid white; /* Optional: border for better visibility */
+            transition: transform 0.3s ease; /* Added transition for hover effect */
+        }
+        .profile img {
+            width: 100%; /* Ensure image fits properly */
+            height: 100%; /* Ensure image fits properly */
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+        .orbiting-dot {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            width: 10px; /* Size of the orbiting dot */
+            height: 10px; /* Size of the orbiting dot */
+            background-color: white; /* Dot color */
+            border-radius: 50%; /* Make it circular */
+            animation: orbit 2s linear infinite; /* Orbiting animation */
+            margin-top: -5px; /* Offset to center the dot */
+            margin-left: -5px; /* Offset to center the dot */
+        }
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(40px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(40px) rotate(-360deg);
+            }
+        }
+        h1 {
+            color: white; /* Changed main title color to white */
+            margin: 0; /* Removed margin for h1 */
+            font-size: 2.5em; /* Font size adjustment */
+            opacity: 0; /* Start hidden for animation */
+            transform: translateY(-20px); /* Slide from above */
+            animation: fadeInUp 0.5s forwards 0.3s; /* Animation */
+        }
+        section {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* Adjusted opacity */
+            max-width: 800px;
+            margin: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #333;
+            margin: 0; /* Removed margin for h2 */
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(40, 44, 52, 0.7);
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button styles */
+        .button {
+            display: inline-block;
+            background-color: red; /* Changed button color to red */
+            color: white;
+            padding: 10px 15px; /* Smaller padding for the button */
+            border: none;
+            border-radius: 5px;
+            font-size: 1em; /* Font size adjustment */
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s; /* Transition for hover effect */
+        }
+        .button:hover {
+            background-color: #ff4d4d; /* Lighter red on hover */
+        }
+
+        /* Countdown styles */
+        .countdown {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+            color: #ffcc00; /* Countdown text color */
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  Hello world
-  <script src="script.js"></script>
-</body>
+    <header>
+        <div class="profile">
+            <img src="profile.png" alt="Profile Picture">
+            <div class="orbiting-dot"></div> <!-- Orbiting dot -->
+        </div>
+        <h1>Jm Web</h1> <!-- Main title -->
+    </header>
 
+    <section>
+        <h2 id="about">About Me</h2>
+        <p>Hi! I'm Jmlabaco, the creator of this website. I'm passionate about creating things that can help others. This website is a way for me to share my interests and connect with people who share similar passions.</p>
+
+        <h2 id="personal-info">Personal Information</h2>
+        <ul>
+            <li><strong>Age:</strong> <span id="age"></span></li> <!-- Age placeholder -->
+            <li><strong>Birthday:</strong> April 5, 2008</li>
+        </ul>
+
+        <h2 id="favorites">My Favorites</h2>
+        <h3>Favorite Games</h3>
+        <ul>
+            <li>Mobile Legends: Bang Bang (MLBB)</li>
+            <li>Minecraft</li>
+        </ul>
+
+        <h3>Favorite Colors</h3>
+        <ul>
+            <li>Blue</li>
+            <li>Red</li>
+        </ul>
+
+        <h3>Favorite Pets</h3>
+        <ul>
+            <li>Cats</li>
+            <li>Dogs</li>
+        </ul>
+
+        <h2>Countdown</h2>
+        <div class="countdown" id="countdown"></div> <!-- Birthday countdown -->
+        <div class="countdown" id="christmas-countdown"></div> <!-- Christmas countdown -->
+        <div class="countdown" id="newyear-countdown"></div> <!-- New Year countdown -->
+
+        <h2>YouTube Downloader</h2>
+        <a href="404.html" class="button">YouTube Downloader</a> <!-- YouTube Downloader button -->
+    </section>
+    <footer>
+        <p>&copy; 2024 JM Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to calculate age based on birthday
+        function calculateAge() {
+            const birthday = new Date('2008-04-05T00:00:00+08:00');
+            const today = new Date();
+            let age = today.getFullYear() - birthday.getFullYear();
+            const monthDiff = today.getMonth() - birthday.getMonth();
+
+            // Adjust age if birthday hasn't occurred yet this year
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+                age--;
+            }
+
+            // Update the age display
+            document.getElementById('age').textContent = age; // Display age
+        }
+
+        // Countdown to the next birthday
+        function updateCountdown() {
+            const now = new Date();
+            const nextBirthday = new Date(now.getFullYear(), 3, 5, 0, 0, 0, 0); // April 5 of the current year
+
+            // If birthday already passed this year, set to next year
+            if (now > nextBirthday) {
+                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+            }
+
+            const timeDiff = nextBirthday - now;
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `Next birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Countdown to Christmas
+        function updateChristmasCountdown() {
+            const now = new Date();
+            const nextChristmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0); // Christmas on December 25
+
+            // If Christmas already passed this year, set to next year
+            if (now > nextChristmas) {
+                nextChristmas.setFullYear(nextChristmas.getFullYear() + 1);
+            }
+
+            const timeDiff = nextChristmas - now;
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('christmas-countdown').innerHTML = `Christmas in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Countdown to New Year
+        function updateNewYearCountdown() {
+            const now = new Date();
+            const nextNewYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0); // New Year
+
+            const timeDiff = nextNewYear - now;
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('newyear-countdown').innerHTML = `New Year in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Update countdowns every second
+        setInterval(() => {
+            calculateAge(); // Update age
+            updateCountdown(); // Update birthday countdown
+            updateChristmasCountdown(); // Update Christmas countdown
+            updateNewYearCountdown(); // Update New Year countdown
+        }, 1000);
+
+        // Initial setup
+        calculateAge(); // Calculate age on page load
+        updateCountdown(); // Initial birthday countdown
+        updateChristmasCountdown(); // Initial Christmas countdown
+        updateNewYearCountdown(); // Initial New Year countdown
+    </script>
+</body>
 </html>

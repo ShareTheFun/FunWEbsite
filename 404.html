@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404 Error - Page Not Found</title>
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: url('https://i.gifer.com/1pX9.gif') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        /* 404 Text */
+        h1 {
+            font-size: 80px;
+            color: white;
+            text-align: center;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        /* Text Glow Animation */
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        /* Message Text */
+        p {
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 3s ease;
+        }
+
+        /* Fade In Effect */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Button Style */
+        a {
+            margin-top: 30px;
+            text-decoration: none;
+            padding: 10px 30px;
+            border: 2px solid white;
+            color: white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            animation: fadeIn 5s ease;
+        }
+
+        a:hover {
+            background-color: white;
+            color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>404</h1>
+        <p>Oops! The page you're looking for doesn't exist.</p>
+        <a href="/">Go Back Home</a>
+    </div>
+</body>
+</html>
