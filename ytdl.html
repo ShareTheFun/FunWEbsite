@@ -2,79 +2,278 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable zooming -->
+    <title>Labaco Downloader (Youtube)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px; /* Adjusted margin for mobile */
             background: url('https://i.gifer.com/1pX9.gif') no-repeat center center fixed;
             background-size: cover;
-            color: white;
-            text-align: center;
+            color: white; /* Change text color for better visibility */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
-        .container {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            margin: 100px auto;
-            width: 50%;
-            border-radius: 10px;
-        }
-        input[type="text"] {
-            width: 80%;
+
+        input {
             padding: 10px;
-            margin: 20px 0;
+            width: 90%; /* Make input responsive */
+            max-width: 400px; /* Limit max width for larger screens */
             border-radius: 5px;
-            border: none;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
         }
+
         button {
             padding: 10px 20px;
-            background-color: #ff0000;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 90%; /* Make button responsive */
+            max-width: 400px; /* Limit max width for larger screens */
         }
-        .result {
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .video-details {
             margin-top: 20px;
+            padding: 10px; /* Add padding for smaller screens */
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.7); /* Add background for better visibility */
+        }
+
+        .video-details h3 {
+            font-size: 20px; /* Smaller font size for mobile */
+            margin-bottom: 10px;
+        }
+
+        .video-details p {
+            font-size: 14px; /* Smaller font size for mobile */
+            color: #ddd; /* Lighter color for description */
+            max-width: 90%; /* Ensure a max width for description */
+            margin: 0 auto; /* Center the description */
+            text-align: left; /* Align text to the left */
+            overflow-wrap: break-word; /* Break long words */
+            word-wrap: break-word; /* Support for older browsers */
+            white-space: normal; /* Allow wrapping of text */
+        }
+
+        video {
+            margin: 20px 0;
+            width: 100%; /* Full width for mobile */
+            max-width: 720px; /* Limit max width for larger screens */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .download-buttons {
+            margin-top: 20px;
+        }
+
+        .download-buttons a {
+            margin: 0 5px; /* Reduced margin for mobile */
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: red; /* Changed to red */
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 14px; /* Smaller font size for mobile */
+        }
+
+        .download-buttons a:hover {
+            background-color: darkred; /* Darker red on hover */
+        }
+
+        .profile {
+            margin-bottom: 20px;
+        }
+
+        .profile img {
+            width: 80px; /* Fixed width for mobile */
+            height: 80px; /* Fixed height for mobile */
+            border-radius: 50%; /* Makes the image circular */
+            border: 2px solid white; /* Optional: adds a white border around the image */
+            object-fit: cover; /* Ensures the image covers the area without stretching */
+        }
+
+        .version {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .disclaimer {
+            font-size: 12px; /* Smaller font size for disclaimer */
+            color: #ddd; /* Light color for better visibility */
+            margin-top: 20px;
+        }
+
+        .copyright {
+            font-size: 12px; /* Smaller font size for copyright */
+            color: #ddd; /* Light color for better visibility */
+            margin-top: 20px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF; /* Bootstrap primary color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 90%; /* Make button responsive */
+            max-width: 400px; /* Limit max width for larger screens */
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .error-message {
+            color: red; /* Red color for error messages */
+            margin-top: 10px;
+            font-size: 14px;
+            display: none; /* Hide by default */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>YouTube Video Downloader</h1>
-        <p>Enter YouTube video URL:</p>
-        <input type="text" id="videoUrl" placeholder="Paste the video URL here">
-        <button onclick="downloadVideo()">Download</button>
-        <div id="result" class="result"></div>
+    <div class="profile">
+        <img src="profile.png" alt="Profile"> <!-- Adjust size as needed -->
+    </div>
+    <h1>Labaco Downloader (Youtube)</h1>
+    <p class="version">Version 1.0.19</p>
+    <p>An YouTube Downloader Made by Mart John Labaco (Jmlabaco,Jm) by JavaScript. This Website allow you to download YouTube videos and audio for free no payments needed. Enjoy!</p>
+    <input type="text" id="ytUrl" placeholder="Enter YouTube URL">
+    <button onclick="fetchVideoDetails()">🔎 Search 🔍</button>
+
+    <!-- Error message box -->
+    <div class="error-message" id="errorMessage"></div>
+
+    <div class="video-details" id="videoDetails" style="display: none;">
+        <h3 id="videoTitle"></h3>
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Download audio button -->
+        <div class="download-buttons" id="downloadButtons" style="display: none;">
+            <a href="#" id="downloadAudio">Download Audio</a>
+        </div>
+
+        <p id="videoDesc"></p>
     </div>
 
+    <button class="back-button" onclick="goBack()">Back to Homepage</button> <!-- Back button -->
+
+    <p class="disclaimer">Disclaimer: All downloads are for personal use only. Please respect copyright laws.</p>
+    <p class="copyright">©Jmlabaco Copyright Disclaimer</p>
+
     <script>
-        function downloadVideo() {
-            const videoUrl = encodeURIComponent(document.getElementById('videoUrl').value);
-            const apiUrl = `https://luffy-api.onrender.com/ytdl?link=${videoUrl}`;
+        function fetchVideoDetails() {
+            const ytUrl = document.getElementById('ytUrl').value.trim();
+            const videoTitle = document.getElementById('videoTitle');
+            const videoDesc = document.getElementById('videoDesc');
+            const videoDetails = document.getElementById('videoDetails');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoSource = document.getElementById('videoSource');
+            const downloadButtons = document.getElementById('downloadButtons');
+            const downloadAudio = document.getElementById('downloadAudio');
+            const errorMessage = document.getElementById('errorMessage'); // Error message element
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);  // Log the response for debugging
+            // Clear previous error message
+            errorMessage.style.display = 'none';
 
-                    if (data.status) {
-                        const title = data.data.title;
-                        const description = data.data.desc;
-                        const videoLink = data.data.video;
-                        document.getElementById('result').innerHTML = `
-                            <h2>${title}</h2>
-                            <p>${description}</p>
-                            <a href="${videoLink}" target="_blank" download>Download Video</a>
-                        `;
-                    } else {
-                        document.getElementById('result').innerHTML = `<p>Error: ${data.message || 'Video not found.'}</p>`;
+            // Regular expression to validate YouTube URLs
+            const youtubeRegex = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})(?:\S+)?$/;
+
+            if (ytUrl) {
+                // Check if the URL is a valid YouTube URL
+                if (!youtubeRegex.test(ytUrl)) {
+                    showErrorMessage('Please enter a valid YouTube URL.'); // Show error if input is invalid
+                    return;
+                }
+
+                // Clear previous video details
+                videoTitle.textContent = '';
+                videoDesc.innerHTML = '';
+                videoSource.src = ''; // Clear previous video source
+                videoPlayer.load(); // Reset the video player
+                downloadButtons.style.display = 'none'; // Hide download buttons
+
+                // CORS proxy to bypass restrictions
+                const apiUrl = `https://cors-anywhere.herokuapp.com/https://luffy-api.onrender.com/ytdl?link=${ytUrl}`;
+
+                fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'x-requested-with': 'XMLHttpRequest'
                     }
                 })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    document.getElementById('result').innerHTML = `<p>Failed to fetch the video. Please try again later.</p>`;
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status && data.data.title) {
+                        videoDetails.style.display = 'block';
+                        videoTitle.textContent = `Title: ${data.data.title}`;
+
+                        // Set the video source to the video link from the API
+                        videoSource.src = data.data.video;
+                        videoPlayer.load();  // Reload the video player with the new video source
+                        videoPlayer.play(); // Auto-play the video after loading
+
+                        // Convert any URLs in the description to clickable links
+                        videoDesc.innerHTML = `Description: ${convertUrlsToLinks(data.data.desc)}`;
+
+                        // Show download buttons and set href attributes
+                        downloadButtons.style.display = 'block';
+                        downloadAudio.dataset.audio = data.data.audio; // Set download link for audio
+
+                        // Clear the input field for the next request
+                        document.getElementById('ytUrl').value = '';
+                    } else {
+                        showErrorMessage('Unable to fetch video details. Please check the URL.');
+                    }
+                })
+                .catch(error => {
+                    showErrorMessage('An error occurred while fetching video details. Please try again later.');
                 });
+            } else {
+                showErrorMessage('Please enter a YouTube URL.'); // Show error if input is empty
+            }
+        }
+
+        function showErrorMessage(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message; // Set the error message text
+            errorMessage.style.display = 'block'; // Show the error message
+        }
+
+        function convertUrlsToLinks(text) {
+            // Regex for time links in the format "2:36" or "1:23:45"
+            const timeRegex = /(\d+):(\d+)(?::(\d+))?/g;
+            const formattedText = text.replace(timeRegex, '<a href="#" onclick="jumpToTime(0, $1, $2)">$&</a>');
+
+            // Convert regular URLs to clickable links
+            const urlRegex = /https?:\/\/[^\s]+/g;
+            return formattedText.replace(urlRegex, '<a href="$&" target="_blank">$&</a>');
+        }
+
+        function jumpToTime(hours, minutes, seconds) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const totalSeconds = (parseInt(hours) || 0) * 3600 + (parseInt(minutes) || 0) * 60 + (parseInt(seconds) || 0);
+            videoPlayer.currentTime = totalSeconds;
+
+            // Scroll the video player into view without excessive scrolling
+            videoPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function goBack() {
+            window.location.href = '/'; // Redirect to homepage
         }
     </script>
 </body>
