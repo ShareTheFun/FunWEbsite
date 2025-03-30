@@ -2,90 +2,435 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JM Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* ===== BASE STYLES ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Default theme (Relaxing) */
+            --bg-color: #f5f7fa;
+            --bg-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --header-bg: rgba(37, 117, 252, 0.8);
+            --text-color: #333;
+            --heading-color: #2c3e50;
+            --section-bg: rgba(255, 255, 255, 0.9);
+            --countdown-color: #3498db;
+            --accent-color: #3498db;
+            --footer-bg: rgba(37, 117, 252, 0.8);
+            --footer-color: white;
+            --orbit-color: #3498db;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --button-bg: #3498db;
+            --button-hover: #2980b9;
+        }
+
+        /* Birthday theme */
+        .birthday-theme {
+            --bg-color: #fef9e7;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --header-bg: rgba(230, 126, 34, 0.8);
+            --text-color: #333;
+            --heading-color: #d35400;
+            --section-bg: rgba(255, 248, 240, 0.95);
+            --countdown-color: #e67e22;
+            --accent-color: #e67e22;
+            --footer-bg: rgba(230, 126, 34, 0.8);
+            --footer-color: white;
+            --orbit-color: #f1c40f;
+            --card-shadow: 0 10px 30px rgba(230, 126, 34, 0.2);
+            --button-bg: #e67e22;
+            --button-hover: #d35400;
+        }
+
+        /* Christmas theme */
+        .christmas-theme {
+            --bg-color: #ecf0f1;
+            --bg-gradient: linear-gradient(135deg, #c0392b 0%, #27ae60 100%);
+            --header-bg: rgba(192, 57, 43, 0.8);
+            --text-color: #2c3e50;
+            --heading-color: #c0392b;
+            --section-bg: rgba(255, 255, 255, 0.95);
+            --countdown-color: #c0392b;
+            --accent-color: #27ae60;
+            --footer-bg: rgba(192, 57, 43, 0.8);
+            --footer-color: white;
+            --orbit-color: #27ae60;
+            --card-shadow: 0 10px 30px rgba(192, 57, 43, 0.2);
+            --button-bg: #c0392b;
+            --button-hover: #a93226;
+        }
+
+        /* New Year theme */
+        .newyear-theme {
+            --bg-color: #1a1a2e;
+            --bg-gradient: linear-gradient(135deg, #000428 0%, #004e92 100%);
+            --header-bg: rgba(41, 128, 185, 0.8);
+            --text-color: #333;
+            --heading-color: #2980b9;
+            --section-bg: rgba(255, 255, 255, 0.95);
+            --countdown-color: #f39c12;
+            --accent-color: #f1c40f;
+            --footer-bg: rgba(41, 128, 185, 0.8);
+            --footer-color: white;
+            --orbit-color: #f1c40f;
+            --card-shadow: 0 10px 30px rgba(41, 128, 185, 0.2);
+            --button-bg: #2980b9;
+            --button-hover: #2471a3;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background: url('https://i.gifer.com/1pX9.gif') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            user-select: none; /* Prevent text selection */
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: all 0.5s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        .theme-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-gradient);
+            background-size: cover;
+            position: relative;
+        }
+
+        .theme-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* ===== HEADER STYLES ===== */
         header {
-            background-color: rgba(40, 44, 52, 0.7);
-            padding: 30px 0; /* Increased padding for header */
+            background-color: var(--header-bg);
+            padding: 2rem 0;
             text-align: center;
             position: relative;
-            overflow: hidden; /* Ensure child elements don't overflow */
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
         .profile {
-            position: absolute;
-            top: 20px; /* Adjusted top position */
-            right: 20px; /* Adjusted right position */
-            width: 50px; /* Fixed width */
-            height: 50px; /* Fixed height */
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid white; /* Optional: border for better visibility */
-            transition: transform 0.3s ease; /* Added transition for hover effect */
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            position: relative;
         }
+
+        .profile:hover {
+            transform: scale(1.1);
+        }
+
         .profile img {
-            width: 100%; /* Ensure image fits properly */
-            height: 100%; /* Ensure image fits properly */
-            object-fit: cover; /* Maintain aspect ratio */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+
+        .orbiting-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: rotate 10s linear infinite;
+        }
+
         .orbiting-dot {
             position: absolute;
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
-            width: 10px; /* Size of the orbiting dot */
-            height: 10px; /* Size of the orbiting dot */
-            background-color: white; /* Dot color */
-            border-radius: 50%; /* Make it circular */
-            animation: orbit 2s linear infinite; /* Orbiting animation */
-            margin-top: -5px; /* Offset to center the dot */
-            margin-left: -5px; /* Offset to center the dot */
+            width: 10px;
+            height: 10px;
+            background-color: var(--orbit-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--orbit-color);
         }
-        @keyframes orbit {
-            0% {
-                transform: rotate(0deg) translateX(40px) rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg) translateX(40px) rotate(-360deg);
-            }
+
+        .dot-1 { top: 0; left: 50%; transform: translateX(-50%); }
+        .dot-2 { top: 50%; right: 0; transform: translateY(-50%); }
+        .dot-3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .dot-4 { top: 50%; left: 0; transform: translateY(-50%); }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
+
         h1 {
-            color: white; /* Changed main title color to white */
-            margin: 0; /* Removed margin for h1 */
-            font-size: 2.5em; /* Font size adjustment */
-            opacity: 0; /* Start hidden for animation */
-            transform: translateY(-20px); /* Slide from above */
-            animation: fadeInUp 0.5s forwards 0.3s; /* Animation */
-        }
-        section {
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.5); /* Adjusted opacity */
-            max-width: 800px;
-            margin: auto;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        h2 {
-            color: #333;
-            margin: 0; /* Removed margin for h2 */
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background-color: rgba(40, 44, 52, 0.7);
             color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
         }
+
+        .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        /* ===== MAIN CONTENT STYLES ===== */
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            max-width: 900px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            color: var(--heading-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--accent-color);
+            transition: all 0.5s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        h3 {
+            color: var(--heading-color);
+            margin: 1.2rem 0 0.7rem;
+            transition: color 0.5s ease;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+
+        ul li {
+            padding: 0.4rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0.4rem;
+        }
+
+        /* ===== COUNTDOWN STYLES ===== */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .countdown {
+            font-size: 1.2rem;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            color: var(--countdown-color);
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .countdown i {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .countdown-value {
+            font-size: 1.4rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== MUSIC PLAYER ===== */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--header-bg);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .music-player.playing {
+            padding-right: 20px;
+        }
+
+        .music-player i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .music-player .song-info {
+            display: none;
+            margin-left: 5px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .music-player.playing .song-info {
+            display: block;
+        }
+
+        /* ===== UPTIME DISPLAY ===== */
+        .uptime-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--header-bg);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: background-color 0.5s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .uptime-display i {
+            margin-right: 8px;
+        }
+
+        /* ===== INTRO SEQUENCE ===== */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            transition: opacity 1s ease;
+        }
+
+        .intro-logo {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.5s;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .intro-tagline {
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards 1.5s;
+            font-weight: 300;
+        }
+
+        .intro-progress-container {
+            width: 250px;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 2.5s;
+        }
+
+        .intro-progress {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .intro-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background-color: white;
+            animation: progressBar 2.5s forwards 3s;
+        }
+
+        .intro-progress-text {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -93,96 +438,406 @@
             }
         }
 
-        /* Button styles */
-        .button {
-            display: inline-block;
-            background-color: red; /* Changed button color to red */
-            color: white;
-            padding: 10px 15px; /* Smaller padding for the button */
-            border: none;
-            border-radius: 5px;
-            font-size: 1em; /* Font size adjustment */
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s; /* Transition for hover effect */
-        }
-        .button:hover {
-            background-color: #ff4d4d; /* Lighter red on hover */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
-        /* Countdown styles */
-        .countdown {
-            font-size: 1.5em;
+        @keyframes progressBar {
+            to {
+                width: 100%;
+            }
+        }
+
+        /* ===== FOOTER STYLES ===== */
+        footer {
             text-align: center;
-            margin-top: 20px;
-            color: #ffcc00; /* Countdown text color */
+            padding: 1.5rem 0;
+            background-color: var(--footer-bg);
+            color: var(--footer-color);
+            margin-top: auto;
+            transition: background-color 0.5s ease;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 600px) {
-            section {
-                padding: 15px;
+        footer p {
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 0;
             }
+            
             h1 {
-                font-size: 1.5em;
+                font-size: 2rem;
             }
-            h2 {
-                font-size: 1.2em;
+            
+            .profile {
+                width: 70px;
+                height: 70px;
+            }
+            
+            main {
+                padding: 1.5rem;
+            }
+            
+            section {
+                padding: 2rem;
+            }
+
+            .intro-logo {
+                font-size: 3rem;
+            }
+
+            .intro-tagline {
+                font-size: 1.2rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .countdown-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .profile {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            section {
+                padding: 1.5rem;
+            }
+            
+            .countdown {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .intro-logo {
+                font-size: 2.5rem;
+            }
+
+            .intro-tagline {
+                font-size: 1rem;
+            }
+
+            .music-player, .uptime-display {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .music-player i, .uptime-display i {
+                font-size: 1rem;
+            }
+
+            .music-player .song-info {
+                max-width: 120px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        /* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+        a:focus, button:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .orbiting-dots {
+                animation: none;
+            }
+            
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+
+            .intro-overlay {
+                opacity: 1;
+            }
+
+            .intro-logo, .intro-tagline, .intro-progress-container {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .intro-progress-bar {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="profile">
-            <img src="profile.png" alt="Profile Picture">
-            <div class="orbiting-dot"></div> <!-- Orbiting dot -->
+    <!-- Intro Sequence Overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <div class="intro-logo">JM Web</div>
+        <div class="intro-tagline">Welcome to my personal space</div>
+        <div class="intro-progress-container">
+            <div class="intro-progress">
+                <div class="intro-progress-bar"></div>
+            </div>
+            <div class="intro-progress-text">Loading experience...</div>
         </div>
-        <h1>Jm Web</h1> <!-- Main title -->
-    </header>
+    </div>
 
-    <section>
-        <h2 id="about">About Me</h2>
-        <p>Hi! I'm Jmlabaco, the creator of this website. I'm passionate about creating things that can help others. This website is a way for me to share my interests and connect with people who share similar passions.</p>
+    <div class="theme-wrapper">
+        <header>
+            <div class="profile-container">
+                <div class="profile">
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                    <div class="orbiting-dots">
+                        <div class="orbiting-dot dot-1"></div>
+                        <div class="orbiting-dot dot-2"></div>
+                        <div class="orbiting-dot dot-3"></div>
+                        <div class="orbiting-dot dot-4"></div>
+                    </div>
+                </div>
+            </div>
+            <h1>Jm Web</h1>
+            <div class="tagline">Creating & Sharing Passions</div>
+        </header>
 
-        <h2 id="personal-info">Personal Information</h2>
-        <ul>
-            <li><strong>Age:</strong> <span id="age"></span></li> <!-- Age placeholder -->
-            <li><strong>Birthday:</strong> April 5, 2008</li>
-        </ul>
+        <main>
+            <section>
+                <h2><i class="fas fa-user"></i> About Me</h2>
+                <p>Hi! I'm Jmlabaco, the creator of this website. I'm passionate about creating things that can help others. This website is a way for me to share my interests and connect with people who share similar passions.</p>
 
-        <h2 id="favorites">My Favorites</h2>
-        <h3>Favorite Games</h3>
-        <ul>
-            <li>Mobile Legends: Bang Bang (MLBB)</li>
-            <li>Minecraft</li>
-        </ul>
+                <h2><i class="fas fa-id-card"></i> Personal Information</h2>
+                <ul>
+                    <li><strong>Age:</strong> <span id="age"></span></li>
+                    <li><strong>Birthday:</strong> April 5, 2008</li>
+                </ul>
 
-        <h3>Favorite Colors</h3>
-        <ul>
-            <li>Blue</li>
-            <li>Red</li>
-        </ul>
+                <h2><i class="fas fa-heart"></i> My Favorites</h2>
+                <h3><i class="fas fa-gamepad"></i> Favorite Games</h3>
+                <ul>
+                    <li>Mobile Legends: Bang Bang (MLBB)</li>
+                    <li>Minecraft</li>
+                </ul>
 
-        <h3>Favorite Pets</h3>
-        <ul>
-            <li>Cats</li>
-            <li>Dogs</li>
-        </ul>
+                <h3><i class="fas fa-palette"></i> Favorite Colors</h3>
+                <ul>
+                    <li>Blue</li>
+                    <li>Red</li>
+                </ul>
 
-        <h2>Countdown</h2>
-        <div class="countdown" id="countdown"></div> <!-- Birthday countdown -->
-        <div class="countdown" id="christmas-countdown"></div> <!-- Christmas countdown -->
-        <div class="countdown" id="newyear-countdown"></div> <!-- New Year countdown -->
+                <h3><i class="fas fa-paw"></i> Favorite Pets</h3>
+                <ul>
+                    <li>Cats</li>
+                    <li>Dogs</li>
+                </ul>
 
-        <h2>YouTube Downloader</h2>
-        <a href="https://labacodownloader-yt.onrender.com" class="button">YouTube Downloader</a> <!-- YouTube Downloader button -->
-    </section>
-    <footer>
-        <p>&copy; 2024 JM Website. All rights reserved.</p>
-    </footer>
+                <h2><i class="fas fa-hourglass-half"></i> Special Day Countdowns</h2>
+                <div class="countdown-container">
+                    <div class="countdown" id="birthday-countdown">
+                        <i class="fas fa-birthday-cake"></i>
+                        Birthday
+                        <div class="countdown-value" id="birthday-countdown-value"></div>
+                    </div>
+                    <div class="countdown" id="christmas-countdown">
+                        <i class="fas fa-gift"></i>
+                        Christmas
+                        <div class="countdown-value" id="christmas-countdown-value"></div>
+                    </div>
+                    <div class="countdown" id="newyear-countdown">
+                        <i class="fas fa-glass-cheers"></i>
+                        New Year
+                        <div class="countdown-value" id="newyear-countdown-value"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; <span id="current-year"></span> JM Website. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <i class="fas fa-music" id="musicToggle"></i>
+        <span class="song-info" id="songInfo">Now Playing: Background Music</span>
+    </div>
+
+    <!-- Uptime Display -->
+    <div class="uptime-display" id="uptimeDisplay">
+        <i class="fas fa-clock"></i>
+        <span id="uptimeText">Site uptime: 00:00:00</span>
+    </div>
 
     <script>
-        // Function to calculate age based on birthday
+        // ===== AUDIO ELEMENTS =====
+        // Create audio elements for different themes
+        const birthdayAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Replace with actual birthday song URL
+        const christmasAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'); // Replace with actual Christmas song URL
+        const newYearAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'); // Replace with actual New Year song URL
+        const defaultAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'); // Replace with actual default song URL
+        
+        let currentAudio = defaultAudio;
+        let isPlaying = false;
+
+        // Set audio properties
+        [birthdayAudio, christmasAudio, newYearAudio, defaultAudio].forEach(audio => {
+            audio.loop = true;
+            audio.volume = 0.3;
+        });
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if this is the first visit
+            const isFirstVisit = !localStorage.getItem('hasVisitedBefore');
+            
+            // Handle intro sequence
+            if (isFirstVisit) {
+                handleIntroSequence();
+                localStorage.setItem('hasVisitedBefore', 'true');
+                // Store the site start time for uptime calculation
+                localStorage.setItem('siteStartTime', Date.now().toString());
+            } else {
+                // Hide intro overlay immediately for returning visitors
+                document.getElementById('introOverlay').style.display = 'none';
+            }
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Initialize all functions
+            calculateAge();
+            checkSpecialDay();
+            updateAllCountdowns();
+            updateUptime();
+            setupMusicPlayer();
+            
+            // Update countdowns and uptime every second
+            setInterval(function() {
+                updateAllCountdowns();
+                updateUptime();
+            }, 1000);
+            
+            // Check for special day at midnight
+            setMidnightCheck();
+        });
+
+        // ===== MUSIC PLAYER =====
+        function setupMusicPlayer() {
+            const musicToggle = document.getElementById('musicToggle');
+            const musicPlayer = document.getElementById('musicPlayer');
+            const songInfo = document.getElementById('songInfo');
+            
+            musicToggle.addEventListener('click', function() {
+                if (isPlaying) {
+                    currentAudio.pause();
+                    musicToggle.classList.remove('fa-volume-up');
+                    musicToggle.classList.add('fa-music');
+                    musicPlayer.classList.remove('playing');
+                } else {
+                    currentAudio.play().catch(e => console.log('Audio play failed:', e));
+                    musicToggle.classList.remove('fa-music');
+                    musicToggle.classList.add('fa-volume-up');
+                    musicPlayer.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+
+        function updateMusicForTheme() {
+            // First pause current audio if playing
+            if (isPlaying) {
+                currentAudio.pause();
+            }
+            
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.getMonth(); // 0-indexed (0 = January)
+            
+            // Set the appropriate audio based on the day
+            if (day === 5 && month === 3) { // Birthday (April 5)
+                currentAudio = birthdayAudio;
+                document.getElementById('songInfo').textContent = 'Now Playing: Happy Birthday';
+            } else if (day === 25 && month === 11) { // Christmas (December 25)
+                currentAudio = christmasAudio;
+                document.getElementById('songInfo').textContent = 'Now Playing: Christmas Music';
+            } else if (day === 1 && month === 0) { // New Year (January 1)
+                currentAudio = newYearAudio;
+                document.getElementById('songInfo').textContent = 'Now Playing: New Year Music';
+            } else {
+                currentAudio = defaultAudio;
+                document.getElementById('songInfo').textContent = 'Now Playing: Relaxing Music';
+            }
+            
+            // Resume playing if it was playing before
+            if (isPlaying) {
+                currentAudio.play().catch(e => console.log('Audio play failed:', e));
+            }
+        }
+
+        // ===== INTRO SEQUENCE =====
+        function handleIntroSequence() {
+            const introOverlay = document.getElementById('introOverlay');
+            
+            // After animations complete, fade out the overlay
+            setTimeout(function() {
+                introOverlay.style.opacity = '0';
+                
+                // Remove overlay after fade out
+                setTimeout(function() {
+                    introOverlay.style.display = 'none';
+                }, 1000);
+            }, 6000); // Wait for all animations to complete
+        }
+
+        // ===== UPTIME DISPLAY =====
+        function updateUptime() {
+            // Get the site start time from localStorage or use current time if not available
+            const startTime = localStorage.getItem('siteStartTime') || Date.now().toString();
+            const uptimeMs = Date.now() - parseInt(startTime);
+            
+            // Calculate hours, minutes, seconds
+            const seconds = Math.floor((uptimeMs / 1000) % 60);
+            const minutes = Math.floor((uptimeMs / (1000 * 60)) % 60);
+            const hours = Math.floor(uptimeMs / (1000 * 60 * 60));
+            
+            // Format with leading zeros
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            
+            // Update the uptime display
+            document.getElementById('uptimeText').textContent = 
+                `Site uptime: ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        // ===== AGE CALCULATION =====
         function calculateAge() {
             const birthday = new Date('2008-04-05T00:00:00+08:00');
             const today = new Date();
@@ -195,77 +850,142 @@
             }
 
             // Update the age display
-            document.getElementById('age').textContent = age; // Display age
+            document.getElementById('age').textContent = age;
+        }
+
+        // ===== THEME MANAGEMENT =====
+        function checkSpecialDay() {
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.getMonth(); // 0-indexed (0 = January)
+            
+            // Remove all theme classes first
+            document.body.classList.remove('birthday-theme', 'christmas-theme', 'newyear-theme');
+            
+            // Check for birthday (April 5)
+            if (day === 5 && month === 3) {
+                document.body.classList.add('birthday-theme');
+                console.log('Birthday theme applied!');
+            }
+            // Check for Christmas (December 25)
+            else if (day === 25 && month === 11) {
+                document.body.classList.add('christmas-theme');
+                console.log('Christmas theme applied!');
+            }
+            // Check for New Year's Day (January 1)
+            else if (day === 1 && month === 0) {
+                document.body.classList.add('newyear-theme');
+                console.log('New Year theme applied!');
+            }
+            
+            // Update music based on the theme
+            updateMusicForTheme();
+        }
+
+        // ===== COUNTDOWN FUNCTIONS =====
+        function updateAllCountdowns() {
+            updateBirthdayCountdown();
+            updateChristmasCountdown();
+            updateNewYearCountdown();
         }
 
         // Countdown to the next birthday
-        function updateCountdown() {
+        function updateBirthdayCountdown() {
             const now = new Date();
-            const nextBirthday = new Date(now.getFullYear(), 3, 5, 0, 0, 0, 0); // April 5 of the current year
-
+            const currentYear = now.getFullYear();
+            const nextBirthday = new Date(currentYear, 3, 5); // April 5 of the current year
+            
             // If birthday already passed this year, set to next year
             if (now > nextBirthday) {
-                nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                nextBirthday.setFullYear(currentYear + 1);
             }
-
-            const timeDiff = nextBirthday - now;
-
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').innerHTML = `Next birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+            const timeRemaining = getTimeRemaining(nextBirthday);
+            
+            // Check if it's birthday today
+            if (now.getDate() === 5 && now.getMonth() === 3) {
+                document.getElementById('birthday-countdown-value').innerHTML = `🎉 Happy Birthday! 🎂`;
+            } else {
+                document.getElementById('birthday-countdown-value').innerHTML = `${formatCountdown(timeRemaining)}`;
+            }
         }
 
         // Countdown to Christmas
         function updateChristmasCountdown() {
             const now = new Date();
-            const nextChristmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0); // Christmas on December 25
-
+            const currentYear = now.getFullYear();
+            const christmas = new Date(currentYear, 11, 25); // December 25
+            
             // If Christmas already passed this year, set to next year
-            if (now > nextChristmas) {
-                nextChristmas.setFullYear(nextChristmas.getFullYear() + 1);
+            if (now > christmas) {
+                christmas.setFullYear(currentYear + 1);
             }
-
-            const timeDiff = nextChristmas - now;
-
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            document.getElementById('christmas-countdown').innerHTML = `Christmas in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+            const timeRemaining = getTimeRemaining(christmas);
+            
+            // Check if it's Christmas today
+            if (now.getDate() === 25 && now.getMonth() === 11) {
+                document.getElementById('christmas-countdown-value').innerHTML = `🎄 Merry Christmas! 🎅`;
+            } else {
+                document.getElementById('christmas-countdown-value').innerHTML = `${formatCountdown(timeRemaining)}`;
+            }
         }
 
         // Countdown to New Year
         function updateNewYearCountdown() {
             const now = new Date();
-            const nextNewYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0); // New Year
-
-            const timeDiff = nextNewYear - now;
-
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-            document.getElementById('newyear-countdown').innerHTML = `New Year in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            const nextYear = now.getFullYear() + 1;
+            const newYear = new Date(nextYear, 0, 1); // January 1 of next year
+            
+            const timeRemaining = getTimeRemaining(newYear);
+            
+            // Check if it's New Year's Day today
+            if (now.getDate() === 1 && now.getMonth() === 0) {
+                document.getElementById('newyear-countdown-value').innerHTML = `🎆 Happy New Year ${now.getFullYear()}! 🎊`;
+            } else {
+                document.getElementById('newyear-countdown-value').innerHTML = `${formatCountdown(timeRemaining)}`;
+            }
         }
 
-        // Update countdowns every second
-        setInterval(() => {
-            calculateAge(); // Update age
-            updateCountdown(); // Update birthday countdown
-            updateChristmasCountdown(); // Update Christmas countdown
-            updateNewYearCountdown(); // Update New Year countdown
-        }, 1000);
+        // ===== HELPER FUNCTIONS =====
+        function getTimeRemaining(endDate) {
+            const total = endDate - new Date();
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+            
+            return {
+                total,
+                days,
+                hours,
+                minutes,
+                seconds
+            };
+        }
 
-        // Initial setup
-        calculateAge(); // Calculate age on page load
-        updateCountdown(); // Initial birthday countdown
-        updateChristmasCountdown(); // Initial Christmas countdown
-        updateNewYearCountdown(); // Initial New Year countdown
+        function formatCountdown(timeRemaining) {
+            return `${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m ${timeRemaining.seconds}s`;
+        }
+
+        // Set up check for midnight to update theme
+        function setMidnightCheck() {
+            const now = new Date();
+            const night = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate() + 1, // tomorrow
+                0, 0, 0 // midnight
+            );
+            const msToMidnight = night.getTime() - now.getTime();
+            
+            // Check at midnight
+            setTimeout(function() {
+                checkSpecialDay();
+                // Set up the next check
+                setMidnightCheck();
+            }, msToMidnight);
+        }
     </script>
 </body>
 </html>
